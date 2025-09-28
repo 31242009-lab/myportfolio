@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const message = document.getElementById("message").value.trim();
 
       try {
-        const response = await fetch("https://myportfolio-vj7j.onrender.com/send-email", {
+        const response = await fetch("https://myportfolio-zg69.onrender.com/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, phone, email, subject, message })
