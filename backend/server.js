@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // API route for sending email
-app.post("/send-email", async (req, res) => {
+app.post("/contact"", async (req, res) => {
   const { name, phone, email, subject, message } = req.body;
 
   const msg = {
