@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     portfolioDetails.forEach((d, i) => d.classList.toggle("active", i === 0));
   }
 
-  /* ---------- Contact form submission ---------- */
+ /* ---------- Contact form submission ---------- */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const message = document.getElementById("message").value.trim();
 
       try {
-        const response = await fetch("https://myportfolio-1-yy7r.onrender.com/send-email", {
+        const response = await fetch("https://myportfolio-vj7j.onrender.com/send-email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, phone, email, subject, message })
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});   // 👈 important closing line
+});// 👈 important closing line
 
 
 
