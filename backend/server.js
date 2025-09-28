@@ -14,6 +14,11 @@ const PORT = process.env.PORT || 10000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Root route for health check
+app.get("/", (req, res) => {
+  res.json({ status: "OK", message: "Server is alive" });
+});
+
 // Configure SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -22,8 +27,8 @@ app.post("/contact", async (req, res) => {
   const { name, phone, email, subject, message } = req.body;
 
   const msg = {
-    to: process.env.RECEIVER_EMAIL, // 👈 Your email (where you want to receive messages)
-    from: process.env.SENDER_EMAIL, // 👈 Verified sender in SendGrid
+    to: process.env.RECEIVER_EMAIL, // Your email
+    from: process.env.SENDER_EMAIL, // Verified sender in SendGrid
     subject: `Portfolio Contact: ${subject || "No Subject"}`,
     text: `
       Name: ${name}
@@ -53,6 +58,7 @@ app.post("/contact", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
 
 
 
