@@ -179,8 +179,19 @@ document.addEventListener("DOMContentLoaded", () => {
     portfolioDetails.forEach((d, i) => d.classList.toggle("active", i === 0));
   }
 
- /* ---------- Contact form submission ---------- */
+  /* ---------- Contact form submission ---------- */
   const contactForm = document.getElementById("contactForm");
+  const statusBox = document.createElement("div");
+  statusBox.id = "form-status";
+  statusBox.style.display = "none";
+  contactForm?.appendChild(statusBox);
+
+  function showStatus(message, type) {
+    statusBox.innerText = message;
+    statusBox.className = type; // use CSS classes 'success' or 'error'
+    statusBox.style.display = "block";
+  }
+
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -199,19 +210,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const data = await response.json();
+
         if (data.success) {
-          alert("✅ Message sent successfully!");
+          showStatus("✅ Message sent successfully!", "success");
           contactForm.reset();
         } else {
-          alert("❌ Failed to send message.");
+          showStatus("❌ Failed to send message.", "error");
         }
       } catch (err) {
         console.error(err);
-        alert("⚠️ Error sending message.");
+        showStatus("⚠️ Error sending message.", "error");
       }
     });
   }
-});// 👈 important closing line
+}); // 👈 end of DOMContentLoaded
+ 👈 important closing line
 
 
 
