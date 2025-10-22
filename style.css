@@ -776,6 +776,25 @@ color: var(--main-color);
     cursor: pointer;
 }
 
+#form-status {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s ease-in-out;
+}
+#form-status.success {
+  background: #d4f8d4;
+  color: #0a7a0a;
+  border: 1px solid #7ad67a;
+}
+#form-status.error {
+  background: #ffd6d6;
+  color: #b00000;
+  border: 1px solid #ff9e9e;
+}
+
+
 /* breakpoint */
 @media screen and (max-width: 1200px){
     html{
