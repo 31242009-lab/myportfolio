@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 }); // 👈 end of DOMContentLoaded
- 👈 important closing line
+ 
 
 
 
