@@ -48,21 +48,30 @@ document.addEventListener("DOMContentLoaded", () => {
         a.classList.toggle("active", a.getAttribute("href").substring(1) === id)
       );
 
+      // Close mobile menu after click
       if (menuIcon) menuIcon.classList.remove("bx-x");
       if (navMenu) navMenu.classList.remove("active");
     });
   }
 
+  // ✅ fix: only trigger if section exists
   navLinks.forEach(link => {
     link.addEventListener("click", e => {
-      e.preventDefault();
-      const id = link.getAttribute("href").substring(1);
-      showSectionById(id);
+      const id = link.getAttribute("href")?.substring(1);
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        showSectionById(id);
+      }
     });
   });
 
+  // ✅ Show initial section properly
   const initial = sections.find(s => s.classList.contains("active")) || sections[0];
-  if (initial) requestAnimationFrame(() => initial.classList.add("fade-in"));
+  if (initial) {
+    sections.forEach(s => s.classList.remove("active", "fade-in"));
+    initial.classList.add("active", "fade-in");
+  }
 
   /* ---------- Resume buttons ---------- */
   const resumeBtns = Array.from(document.querySelectorAll(".resume-btn"));
@@ -223,8 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-}); // 👈 end of DOMContentLoaded
- 
+});
+
 
 
 
