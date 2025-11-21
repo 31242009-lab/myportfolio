@@ -4,6 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
+const cron = require("node-cron");
+const axios = require("axios");
 
 dotenv.config();
 
@@ -14,7 +16,7 @@ const PORT = process.env.PORT || 10000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Root route for health check
+// Root route
 app.get("/", (req, res) => {
   res.json({ status: "OK", message: "Server is alive" });
 });
@@ -22,20 +24,15 @@ app.get("/", (req, res) => {
 // Configure SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// API route for sending email
+// Contact form route
 app.post("/contact", async (req, res) => {
   const { name, phone, email, subject, message } = req.body;
 
   const msg = {
-    to: process.env.RECEIVER_EMAIL, // Your email
-    from: process.env.SENDER_EMAIL, // Verified sender in SendGrid
+    to: process.env.RECEIVER_EMAIL,
+    from: process.env.SENDER_EMAIL,
     subject: `Portfolio Contact: ${subject || "No Subject"}`,
-    text: `
-      Name: ${name}
-      Phone: ${phone}
-      Email: ${email}
-      Message: ${message}
-    `,
+    text: `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nMessage: ${message}`,
     html: `
       <h3>New Contact Form Submission</h3>
       <p><strong>Name:</strong> ${name}</p>
@@ -51,6 +48,16 @@ app.post("/contact", async (req, res) => {
   } catch (error) {
     console.error("SendGrid Error:", error.response ? error.response.body : error);
     res.status(500).json({ success: false, error: "Email failed to send." });
+  }
+});
+
+// ⏰ Cron job (every 5 minutes)
+cron.schedule("*/5 * * * *", async () => {
+  try {
+    console.log("Keep-alive ping...");
+    await axios.get(process.env.SERVER_URL); // Add your backend URL in .env
+  } catch (err) {
+    console.log("Ping failed:", err.message);
   }
 });
 
