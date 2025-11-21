@@ -211,6 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const subject = document.getElementById("subject").value.trim();
       const message = document.getElementById("message").value.trim();
 
+      showStatus("⏳ Sending message...", "loading");
+
+
       try {
         const response = await fetch("https://myportfolio-zg69.onrender.com/contact", {
           method: "POST",
