@@ -780,19 +780,37 @@ color: var(--main-color);
   margin-top: 10px;
   padding: 10px;
   border-radius: 6px;
-  font-weight: 500;
-  transition: 0.3s ease-in-out;
+  font-weight: 600;
 }
+
+/* Colors */
 #form-status.success {
-  background: #d4f8d4;
-  color: #0a7a0a;
-  border: 1px solid #7ad67a;
+  background: #d4f7d4;
+  color: #0c7a0c;
+  border-left: 4px solid #0c7a0c;
 }
+
 #form-status.error {
   background: #ffd6d6;
-  color: #b00000;
-  border: 1px solid #ff9e9e;
+  color: #a30000;
+  border-left: 4px solid #a30000;
 }
+
+/* Loading animation */
+#form-status.loading {
+  background: #eaf1ff;
+  color: #0041c2;
+  border-left: 4px solid #0041c2;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Soft pulsing effect */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
 
 
 /* breakpoint */
